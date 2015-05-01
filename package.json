@@ -6,6 +6,41 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "browserify": {
+    "transform": [
+      "browserify-shim"
+    ]
+  },
+  "aliasify": {
+    "aliases": {
+      "underscore": "lodash"
+    }
+  },
+  "browser": {
+    "jquery": "./vendor/jquery/dist/jquery.min.js"
+  },
+  "browserify-shim": {
+    "velocity-animate": {
+      "exports": "Velocity"
+    }
+  },
   "author": "Mark Kellett",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "*",
+    "velocity-animate": "^1.2.2"
+  },
+  "devDependencies": {
+    "aliasify": "^1.7.2",
+    "bower-resolve": "^2.2.1",
+    "browser-sync": "^2.4.0",
+    "browserify": "^9.0.3",
+    "browserify-shim": "^3.8.3",
+    "gulp": "^3.8.11",
+    "gulp-brfs": "^0.1.0",
+    "gulp-less": "^3.0.2",
+    "gulp-minify-css": "^1.0.0",
+    "resolve": "^1.1.6",
+    "vinyl-source-stream": "^1.1.0"
+  }
 }
