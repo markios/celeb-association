@@ -1,0 +1,39 @@
+
+
+#loading-page {
+	width:100%;
+	height:100%;
+	position:absolute;
+	.message-holder {
+		position:absolute;
+		width:80%;
+		top:50%;
+		margin-top:-25px;
+		.out-left(-80%);
+		h3 {
+			text-align:center;
+			line-height:150px;
+			background-color:@white;
+			.skew(-2.5deg);
+		}
+		.progress {
+			position:absolute;
+			bottom:0;
+			height:10px;
+			width:0;
+			background-color:@offBlack;
+			.skew(-2.5deg);
+			.transition(width, 300ms);
+		}
+	}
+}
+
+/* web ipad */
+@media only screen and (min-width: @webLower) {
+	
+}	
+
+/* mobile */
+@media only screen and (min-width: @mobileLower) and (max-width: @mobileUpper) {
+    
+}

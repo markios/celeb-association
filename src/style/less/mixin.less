@@ -1,0 +1,24 @@
+.out-left(@out) {
+   left:@out;
+}
+
+.skewed(@background){
+  background-color:@background;
+}
+
+.skew(@deg){
+  transform: skewY(@deg);
+  -webkit-transform: skewY(@deg);
+     -moz-transform: skewY(@deg);
+      -ms-transform: skewY(@deg);
+       -o-transform: skewY(@deg);
+  
+}
+
+.transition(@prop, @dur, @easing:ease){
+  transition: @prop @dur @easing;
+  -webkit-transition: @prop @dur @easing;
+     -moz-transition: @prop @dur @easing;
+      -ms-transition: @prop @dur @easing;
+       -o-transition: @prop @dur @easing;
+}
