@@ -19,6 +19,11 @@ var targetDir = './',
     vendorFile = 'vendor.js',
     destFile = 'main.js';
  
+
+var paths = {
+    scripts : ['src/scripts/**/*.js'],
+    less    : ['src/style/less/*.less']
+};
 /**
  * Helper function(s)
  */
@@ -107,5 +112,10 @@ gulp.task('build-app', function () {
                   .pipe(gulp.dest(destFolder + 'scripts'));
     
     return stream;
+});
+
+gulp.task('watch', function() {
+  gulp.watch(paths.scripts, ['build-app']);
+  gulp.watch(paths.less, ['less']);
 });
 
