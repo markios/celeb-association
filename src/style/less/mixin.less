@@ -2,6 +2,14 @@
    left:@out;
 }
 
+.out-right(@out) {
+   right:@out;
+}
+
+.out-top(@out) {
+   top:@out;
+}
+
 .skewed(@background){
   background-color:@background;
 }
@@ -13,6 +21,18 @@
       -ms-transform: skewY(@deg);
        -o-transform: skewY(@deg);
   
+}
+
+.border-radius(@border){
+    -webkit-border-radius:@border;
+       -moz-border-radius:@border;
+         -o-border-radius:@border;
+            border-radius:@border;
+}
+
+.box-sizing(@sizing:border-box){
+   -moz-box-sizing:@sizing;
+        box-sizing:@sizing;
 }
 
 .transition(@prop, @dur, @easing:ease){

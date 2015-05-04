@@ -2,6 +2,8 @@
 @import 'variables.less';
 @import 'mixin.less';
 @import 'loading.less';
+@import 'intro.less';
+@import 'game.less';
 
 /*! HTML5 Boilerplate v5.2.0 | MIT License | https://html5boilerplate.com/ */
 
@@ -31,6 +33,34 @@ html {
 
 .body-font {
 	font-family:@bodyFont;
+}
+
+/*
+	Animation helpers
+*/
+
+.out-left-short {
+	position:relative;
+	.out-left(-10px);
+}
+
+.out-left-full {
+	position:relative;
+	.out-left(-80%);
+}
+
+.out-right-far {
+	position:relative;
+	.out-right(-100px);
+}
+
+.out-top-full {
+	position:relative;
+	.out-top(-180px);
+}
+
+.opaque {
+	opacity:0;
 }
 
 /*
@@ -123,6 +153,7 @@ body {
 	position:relative;
 	width:100%;
 	height:100%;
+	.transition(background-color, 500ms);
 }
 
 h1, h2, h3, h4 {

@@ -1,12 +1,19 @@
 /* global m */
 'use strict';
 
-var m = require('mithril');
+var m = require('mithril'),
+	loadingViewModel = require('./../models/loading-vm');
 
-var LoadingController = function(){};
+var LoadingController = function(){
+	this.VM = new loadingViewModel();
+	this.VM.init();
+};
 
-// LoadingController.prototype.start = function(){
-// 	m.router('/start');
-// };
+/*
+	Public Members
+*/
+LoadingController.prototype.onloaded = function(){
+	m.route("/intro");
+};
 
 module.exports = LoadingController;

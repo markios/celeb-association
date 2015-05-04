@@ -1,18 +1,28 @@
 'use strict';
 
 var m = require('mithril'),
-	loadingViewModel = require('./../views/loading-vm'),
+	gameController = require('../controllers/game-controller'),
+	gameView = require('../views/game-view'),
+	introController = require('../controllers/intro-controller'),
+	introView = require('../views/intro-view'),
+	loadingController = require('../controllers/loading-controller'),
 	loadingView = require('../views/loading-view');
 
 var application = function(){
-	var controller = function(){
-		this.VM = new loadingViewModel();
-		this.VM.init();
-	};
-
 	//initialize the application
-	m.module(document.body, { controller: controller, view: loadingView });
+	var app = {
+		loading : { controller: loadingController, view: loadingView },
+		intro   : { controller: introController,   view: introView },
+		game	: { controller: gameController, view: gameView }
+	}
+
+	m.route.mode = "hash";
+
+	m.route(document.body, "/", {
+	    ""		 : app.loading,
+	    "/intro" : app.intro,
+	    "/game"  : app.game
+	});
 };
 
 module.exports = application;
-
