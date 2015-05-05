@@ -20,6 +20,7 @@ GameController.prototype.ready = function(){
 GameController.prototype.toggle = function(ans){
 	ans.selected(!ans.selected());
 	ans.toggled(true);
+	m.redraw();
 };
 
 

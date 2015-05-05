@@ -16,20 +16,21 @@
       "underscore": "lodash"
     }
   },
-  "browser": {
-    "jquery": "./vendor/jquery/dist/jquery.min.js"
-  },
   "browserify-shim": {
     "velocity-animate": {
       "exports": "Velocity"
     },
-    "mithril" : {
+    "mithril": {
       "exports": "m"
+    },
+    "hammerjs" : {
+      "exports": "Hammer"
     }
   },
   "author": "Mark Kellett",
   "license": "ISC",
   "dependencies": {
+    "hammerjs": "^2.0.4",
     "lodash": "*",
     "mithril": "^0.1.34",
     "velocity-animate": "^1.2.2"

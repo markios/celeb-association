@@ -41,6 +41,17 @@ var getBowerPackageIds = function() {
     return _.keys(bowerManifest.dependencies) || [];
 };
 
+var getShimPackets = function() {
+    var packageManifest = {};
+    try {
+        packageManifest = require('./package.json');
+    } catch (e) {
+        // does not have a package.json manifest
+        console.log('You package json manifest');
+    }
+    return _.keys(packageManifest.shimDependencies) || [];
+};
+
 var getNPMPackageIds = function() {
     var packageManifest = {};
     try {
@@ -91,8 +102,11 @@ gulp.task('build-vendor', function () {
     });
     getNPMPackageIds().forEach(function (id) {
         console.log(nodeResolve.sync(id));
-        // var resolvedPath = bowerResolve.fastReadSync(id, { basedir : targetDir + 'vendor' });
         b.require(nodeResolve.sync(id), { expose: id });
+    });
+    getShimPackets().forEach(function (id) {
+        console.log('shim ' + id);
+        b.require(nodeResolve.sync('./src/scripts/shim-dependencies/' + id), { expose: id });
     });
     b.transform({global: true}, aliasify);
     var stream = b.bundle().pipe(source('vendor.js'));

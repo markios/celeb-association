@@ -2,6 +2,7 @@
 'use strict';
 
 var m = require('mithril'),
+    Hammer = require('hammerjs'),
     Velocity = require('velocity-animate');
 
 var View = function(ctrl, answer){
@@ -10,10 +11,16 @@ var View = function(ctrl, answer){
         if (isInitialized && answer.toggled()) {
             Velocity(el, 'callout.pulse', { duration : 400 });
             answer.toggled(false);
+        } else if(!isInitialized){
+            var hammertime = new Hammer(el);
+            hammertime.on('tap', ctrl.toggle.bind(this, answer));
         }
     };
 
-    return m("li.opaque", { config : animIn, onclick : ctrl.toggle.bind(this, answer), style : { backgroundImage : "url(" + answer.image() + ")" } }, [
+    return m("li.opaque", {
+        config : animIn,
+        style : { backgroundImage : "url(" + answer.image() + ")" }
+    }, [
         m("h4.name", answer.name())
     ]);
 };

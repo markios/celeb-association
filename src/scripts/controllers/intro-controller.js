@@ -13,7 +13,7 @@ var IntroController = function(){
 	Public Members
 */
 IntroController.prototype.onBegin = function(){
-	// this.VM.begin(true);
+	m.redraw();
 };
 
 IntroController.prototype.startGame = function(){

@@ -3,6 +3,7 @@
 
 var m = require('mithril'),
     _ = require('lodash'),
+    Hammer = require('hammerjs'),
     Velocity = require('velocity-animate');
 
 var Loading = function(ctrl){
@@ -23,13 +24,20 @@ var Loading = function(ctrl){
         }
     };
 
+    var events = function(el, isInitialized){
+        if(!isInitialized) {
+            var hammertime = new Hammer(el);
+            hammertime.on('tap', ctrl.onBegin);
+        }
+    };
+
     return m('#intro-page', [
         m('.intro-holder', {
             config : animIn
         },[
             m('h2.opaque', ctrl.VM.title()),
             m('.description.opaque', ctrl.VM.description()),
-            m('a.begin.opaque', { onclick: ctrl.onBegin }, 'begin'),
+            m('a.begin.opaque', { config: events }, 'begin'),
             m('.brand.opaque.out-right-far', { style : { backgroundImage : 'url({0})'.replace('{0}', ctrl.VM.brand()) } })
         ])
     ]);
