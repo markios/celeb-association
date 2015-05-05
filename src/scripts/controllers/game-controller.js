@@ -17,5 +17,10 @@ GameController.prototype.ready = function(){
 	this.VM.startGame();
 };
 
+GameController.prototype.toggle = function(ans){
+	ans.selected(!ans.selected());
+	ans.toggled(true);
+};
+
 
 module.exports = GameController;

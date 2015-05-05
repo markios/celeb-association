@@ -8,7 +8,9 @@ var m = require('mithril'),
 var Answer = function(d){
     this.image = m.prop(d.image);
     this.name = m.prop(d.name);
+    this.selected = m.prop(false);
     this.correct = m.prop(d.correct);
+    this.toggled = m.prop(false);
 };
 
 var Question = function(d){

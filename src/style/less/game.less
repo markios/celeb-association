@@ -20,7 +20,7 @@ body {
 		.game-header {
 			position:absolute;
 			left:0;
-			height:150px;
+			height:120px;
 			width:100%;
 			background-color:@white;
 			.timer {
@@ -28,7 +28,8 @@ body {
 			}
 			.current-question {
 				text-align:center;
-				line-height:150px;
+				margin-top: 35px;
+  				padding: 10px;
 			}
 			&::after {
 				content:"";
@@ -43,9 +44,9 @@ body {
 		}
 		.answers-area {
 			position:relative;
-			width:390px;
+			max-width:390px;
 			height:400px;
-			margin: 50px auto;
+			margin: 20px auto;
 			ul {
 				list-style:none;
 				margin:0;
@@ -53,7 +54,6 @@ body {
 				li {
 					float:left;
 					position:relative;
-					width:130px;
 					height:100px;
 					background-size:auto 100%;
 					background-position:center;
@@ -64,7 +64,7 @@ body {
 						bottom:-20px;
 						margin:0;
 						width:100%;
-						font-size:.9rem;
+						font-size:.8rem;
 						text-align:center;
 						color:@white;
 					}
@@ -82,10 +82,23 @@ body {
 	}
 	.answers-area {
 		top:140px;
+		ul {
+			li {
+				width:130px;
+			}
+		}
 	}
 }	
 
 /* mobile */
 @media only screen and (min-width: @mobileLower) and (max-width: @mobileUpper) {
-
+	.answers-area {
+		top:150px;
+		width:320px;
+		ul {
+			li {
+				width:106px;
+			}
+		}
+	}
 }
