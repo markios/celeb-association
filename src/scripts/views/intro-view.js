@@ -9,9 +9,9 @@ var Loading = function(ctrl){
 
     var animIn = function(el, isInitialized, context) {
         var sequence = [
-            { e : el.children[0], p : 'transition.slideUpIn', o : { duration : 500, delay : 300, opacity : 0 } },
-            { e : el.children[1], p : 'transition.slideUpIn', o : { duration : 500 } },
-            { e : el.children[2], p : 'transition.bounceIn',  o : { duration : 500 } },
+            { e : el.children[0], p : 'transition.slideUpIn', o : { duration : 300, delay : 300, opacity : 0 } },
+            { e : el.children[1], p : 'transition.slideUpIn', o : { duration : 300 } },
+            { e : el.children[2], p : 'transition.bounceIn',  o : { duration : 300 } },
             { e : el.children[3], p : { opacity : 1, rotateZ : '-25', right : -50 }, o : { duration : 500, easing : [ 250, 15 ] } }
         ];
 

@@ -2,6 +2,7 @@
 /* Global module */
 
 var m = require('mithril'),
+    _  = require('lodash'),
     GameModel = require('./../models/game-model');
 
 var LoadingVM = function(){};
@@ -32,9 +33,16 @@ var _preload = function(){
     Public Members
 */
 LoadingVM.prototype.init = function(){
+    var questions = GameModel.questions(),
+        entities = [];
+
+    _.each(questions, function(q){
+        entities = _.union(entities, _.pluck(q.answers, 'image'));
+    });
+
     this.loaded = m.prop(false);
     this.progress = m.prop(0);
-    this.targets = m.prop(GameModel.entities().concat(GameModel.brands()));
+    this.targets = m.prop(entities.concat(GameModel.brands()));
     this.targetsLoaded = m.prop(0);
     _preload.call(this);
 };

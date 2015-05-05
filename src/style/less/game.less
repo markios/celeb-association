@@ -13,6 +13,7 @@ body {
 	.game-holder {
 		margin:0 auto;
 		position:relative;
+		overflow:hidden;
 		height:100%;
 		width:100%;
 		.box-sizing;
@@ -40,6 +41,37 @@ body {
 				.skew(-2.5deg);
 			}
 		}
+		.answers-area {
+			position:relative;
+			width:390px;
+			height:400px;
+			margin: 50px auto;
+			ul {
+				list-style:none;
+				margin:0;
+				padding:0;
+				li {
+					float:left;
+					position:relative;
+					width:130px;
+					height:100px;
+					background-size:auto 100%;
+					background-position:center;
+					background-repeat:no-repeat;
+					margin-bottom:30px;
+					.name {
+						position:absolute;
+						bottom:-20px;
+						margin:0;
+						width:100%;
+						font-size:.9rem;
+						text-align:center;
+						color:@white;
+					}
+				}
+				clear:both;
+			}
+		}
 	}
 }
 
@@ -47,6 +79,9 @@ body {
 @media only screen and (min-width: @webLower) {
 	.game-holder {
 		max-width:700px;
+	}
+	.answers-area {
+		top:140px;
 	}
 }	
 

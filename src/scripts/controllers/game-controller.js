@@ -13,5 +13,9 @@ var GameController = function(){
 	Public Members
 */
 
+GameController.prototype.ready = function(){
+	this.VM.startGame();
+};
+
 
 module.exports = GameController;
