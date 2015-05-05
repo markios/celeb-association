@@ -1,6 +1,8 @@
 'use strict';
 
 var m = require('mithril'),
+	Velocity = require('velocity-animate'),
+	v = require('velocity-animate/velocity.ui'),
 	gameController = require('../controllers/game-controller'),
 	gameView = require('../views/game-view'),
 	introController = require('../controllers/intro-controller'),

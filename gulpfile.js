@@ -90,6 +90,7 @@ gulp.task('build-vendor', function () {
         debug: !production
     });
     getNPMPackageIds().forEach(function (id) {
+        console.log(nodeResolve.sync(id));
         // var resolvedPath = bowerResolve.fastReadSync(id, { basedir : targetDir + 'vendor' });
         b.require(nodeResolve.sync(id), { expose: id });
     });
