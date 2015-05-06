@@ -3,23 +3,61 @@
 
 var m = require('mithril'),
     answerView = require('./answer-view'),
+    timerView = require('./timer-view'),
     Velocity = require('velocity-animate');
+
+
+var renderGamePage = function(ctrl, el){
+    document.body.className = 'game';
+    Velocity(el.children[0], { translateY : '+=170px' }, { duration : 500, delay : 300, easing : [ 250, 0 ] }).then(function(){
+        ctrl.VM.startGame();
+    });
+};
+
+var renderQuestionUp = function(ctrl, el){
+    var target = document.getElementsByClassName('question-number'),
+        question = document.getElementsByClassName('current-question');
+
+    Velocity(target, {
+        left : '50px',
+        top : '20px',
+        fontSize : '0.9rem'
+    }).then(function(){
+        Velocity(question, 'transition.slideUpIn').then(ctrl.startQuestion.bind(ctrl));
+    });
+};
+
+var renderAnswers = function(ctrl, el){
+    // Velocity
+};
+
+var renderStartQuestion = function(ctrl, el){
+    // Show the questions
+    el.children[0].className += ' begin';
+
+    // get answers and remove weird init style
+    var answers = document.getElementsByClassName('answers-area')[0];
+    answers.style.opacity = 1;
+    answers.style.display = 'block';
+    
+    // Show the answers
+    var ul = answers.children[0];
+    Velocity(ul.children, 'transition.bounceIn', { stagger : '200ms' }).then(function(){
+        renderQuestionUp(ctrl, el);
+    });
+    ctrl.VM.questionShown(true);
+};
 
 var View = function(ctrl){
     var animIn = function(el, isInitialized, context) {
+        // Decide what to do 
         if (!isInitialized) {
-            document.body.className = 'game';
-            Velocity(el.children[0], { translateY : '+=170px' }, { duration : 500, delay : 300, easing : [ 250, 0 ] }).then(function(){
-                ctrl.VM.startGame();
-            });
-        } else if(!ctrl.VM.gameOver() && !ctrl.VM.questionShown()){
-            var answers = document.getElementsByClassName('answers-area')[0];
-            answers.style.opacity = 1;
-            answers.style.display = 'block';
-            var ul = answers.children[0];
-            Velocity(ul.children, 'transition.bounceIn', { stagger : '200ms' });
-            window.w = true;
-            ctrl.VM.questionShown(true);
+            renderGamePage(ctrl, el);
+        } else if(ctrl.VM.endQuestion()){
+
+        }
+        else if(!ctrl.VM.gameOver() && !ctrl.VM.questionShown()){
+            renderStartQuestion(ctrl, el);
         }
     };
 
@@ -28,8 +66,10 @@ var View = function(ctrl){
             config : animIn
         },[
             m('header.game-header.out-top-full', [
-                m('.timer'),
-                m('h3.current-question', ctrl.VM.question().text())
+                timerView(ctrl, ctrl.VM.timer()),
+                m('h3.intro', 'Get ready'),
+                m('h3.question-number', "question " + (+ctrl.VM.currentQuestion() + 1)),
+                m('h3.current-question.opaque', ctrl.VM.question().text())
             ]),
             m('.answers-area', [
                 m("ul", [

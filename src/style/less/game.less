@@ -24,12 +24,38 @@ body {
 			width:100%;
 			background-color:@white;
 			.timer {
-
+				position:absolute;
+				left:0;
+				top:0;
+				height:20px;
+				width:0;
+				background-color:@Pink;
 			}
-			.current-question {
+			.question-number {
+				display:none;
+				position:absolute;
+  				width:100px;
+  				text-align:center;
+  				left:50%;
+  				margin-left:-50px;
+				top:50px;
+  				padding:0;
+  				text-transform:capitalize;
+			}
+			.current-question, .intro {
+				position:relative;
+				z-index:3;
 				text-align:center;
-				margin-top: 35px;
+				margin-top: 60px;
   				padding: 10px;
+			}
+			&.begin {
+				.intro {
+					display:none;
+				}
+				.question-number {
+					display:block;		
+				}
 			}
 			&::after {
 				content:"";

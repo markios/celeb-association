@@ -22,5 +22,13 @@ GameController.prototype.toggle = function(ans){
 	m.redraw();
 };
 
+GameController.prototype.onTime = function(){
+    this.VM.endQuestion();
+    m.redraw();
+};
+
+GameController.prototype.startQuestion = function(){
+    this.VM.startQuestion();
+};
 
 module.exports = GameController;

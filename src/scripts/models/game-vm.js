@@ -20,6 +20,11 @@ var Question = function(d){
     }));
 };
 
+var Timer = function(time){
+    this.isActive = m.prop(false);
+    this.time = m.prop(time * 1000);
+};
+
 /*
     Constructor
 */
@@ -55,16 +60,28 @@ GameVM.prototype.init = function(){
     var questions = GameModel.questions();
     this.currentQuestion = m.prop(0);
     this.currentScore = m.prop(0);
-    this.questionShown = m.prop(false);
-    this.timer = m.prop(GameModel.timer());
+    this.timer = m.prop(null);
     this.questions = m.prop(questions);
     this.totalQuestions = m.prop(questions.length);
     this.gameOver = m.prop(false);
-    this.question = m.prop(new Question({ question : "Get Ready", answers : [] }));
+    this.question = m.prop(new Question({ question : "", answers : [] }));
+    
+    // View Queues 
+    this.questionShown = m.prop(false);
+    this.endQuestion = m.prop(false);
 };
 
 GameVM.prototype.startGame = function(){
     setTimeout(_setCurrentQuestion.bind(this), 2000);
+};
+
+GameVM.prototype.endQuestion = function(){
+    this.endQuestion = m.prop(true);
+};
+
+GameVM.prototype.startQuestion = function(){
+    this.timer(new Timer(GameModel.timer()));
+    m.redraw();
 };
 
 module.exports = GameVM;

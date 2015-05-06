@@ -7,8 +7,12 @@ var m = require('mithril'),
 var View = function(ctrl, timer){
 
     var animIn = function(el, isInitialized, context) {
+        if(!timer) return;
         if(!timer.isActive()){
-            // Velocity(el, { });
+            Velocity(el, { width : '100%' }, { duration : timer.time(), easing : 'linear' }).then(function(){
+                ctrl.onTime();
+            });
+            timer.isActive(true);
         }
     };
 

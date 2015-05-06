@@ -9,6 +9,7 @@ var data = {
 	score     :0,
 	title : "Beamly Comedy Special",
 	description : "Can you associate the celebrities with the shows in the time limit? lets find out...",
+	timer : 7,
 	brands : [
 		'http://img-a.zeebox.com/images/z/a5bf62ac-3e5f-46fa-9b59-59c09bc03d3e.png'
 	],
