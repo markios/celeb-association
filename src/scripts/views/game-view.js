@@ -11,7 +11,6 @@ var renderGamePage = function(ctrl, el){
     document.body.className = 'game';
     Velocity(el.children[0], { translateY : '+=170px' }, { duration : 500, delay : 300, easing : [ 250, 0 ] }).then(function(){
         ctrl.ready();
-        el.children[0].classList.toggle('in-game');
     });
 };
 
@@ -48,7 +47,7 @@ var renderAnswersOut = function(ctrl, el){
 
 var renderStartQuestion = function(ctrl, el){
     // Show the questions
-    el.children[0].classList.toggle('begin');
+    el.children[0].classList.add('begin');
 
     // get answers and remove weird init style
     var answers = document.getElementsByClassName('answers-area')[0];
@@ -76,6 +75,10 @@ var View = function(ctrl){
         // show the question
         else if(!ctrl.VM.gameOver() && !ctrl.VM.questionShown()){
             renderStartQuestion(ctrl, el);
+        }
+        // End of game 
+        else if(ctrl.VM.gameOver()) {
+            alert('score = ' + ctrl.VM.currentScore());
         }
     };
 

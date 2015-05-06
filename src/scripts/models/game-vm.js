@@ -13,6 +13,15 @@ var Answer = function(d){
     this.toggled = m.prop(false);
 };
 
+Answer.prototype.getScore = function(){
+    var score = 0;
+
+    if(this.selected() && this.correct()) score = 1;
+    else if(this.selected() && ! this.correct()) score = -1;
+
+    return score;
+};
+
 var Question = function(d){
     this.text = m.prop(d.question);
     this.answers = m.prop(_.map(d.answers, function(a){
@@ -24,7 +33,7 @@ var Timer = function(time){
     this.isActive = m.prop(false);
     this.time = m.prop(time * 1000);
 };
-
+    
 /*
     Constructor
 */
@@ -35,6 +44,18 @@ var GameVM = function(){};
 /*
     Private Members
 */
+
+// You can get negative scores!!
+var _updateScore = function(){
+    var currentScore = this.currentScore(),
+        score = 0;
+
+    _.each(this.question().answers(), function(ans){
+        score += ans.getScore();
+    });
+
+    this.currentScore(currentScore + score);
+};
 
 var _setCurrentQuestion = function(){
     var q = new Question(this.questions()[this.currentQuestion()]);
@@ -77,6 +98,7 @@ GameVM.prototype.startGame = function(){
 
 GameVM.prototype.stopQuestion = function(){
     this.endQuestion(false);
+    _updateScore.call(this);
     this.question(new Question({ question : "", answers : [] }));
 };
 
