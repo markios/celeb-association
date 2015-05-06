@@ -10,17 +10,16 @@ var View = function(ctrl){
         if (!isInitialized) {
             document.body.className = 'game';
             Velocity(el.children[0], { translateY : '+=170px' }, { duration : 500, delay : 300, easing : [ 250, 0 ] }).then(function(){
-                setTimeout(function(){
-                    ctrl.VM.startGame();
-                }, 300);
+                ctrl.VM.startGame();
             });
-        } else if(!ctrl.VM.gameOver() && ! window.w){
+        } else if(!ctrl.VM.gameOver() && !ctrl.VM.questionShown()){
             var answers = document.getElementsByClassName('answers-area')[0];
             answers.style.opacity = 1;
             answers.style.display = 'block';
             var ul = answers.children[0];
             Velocity(ul.children, 'transition.bounceIn', { stagger : '200ms' });
             window.w = true;
+            ctrl.VM.questionShown(true);
         }
     };
 

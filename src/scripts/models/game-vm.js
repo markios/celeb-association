@@ -55,6 +55,7 @@ GameVM.prototype.init = function(){
     var questions = GameModel.questions();
     this.currentQuestion = m.prop(0);
     this.currentScore = m.prop(0);
+    this.questionShown = m.prop(false);
     this.timer = m.prop(GameModel.timer());
     this.questions = m.prop(questions);
     this.totalQuestions = m.prop(questions.length);

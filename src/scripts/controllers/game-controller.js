@@ -8,7 +8,6 @@ var GameController = function(){
 	this.VM = new gameViewModel();
 	this.VM.init();
 };
-
 /*
 	Public Members
 */
