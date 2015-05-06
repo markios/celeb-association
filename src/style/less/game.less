@@ -50,11 +50,13 @@ body {
   				padding: 10px;
 			}
 			&.begin {
-				.intro {
-					display:none;
-				}
 				.question-number {
 					display:block;		
+				}
+			}
+			&.in-game {
+				.intro {
+					display:none;
 				}
 			}
 			&::after {
@@ -77,6 +79,7 @@ body {
 				list-style:none;
 				margin:0;
 				padding:0;
+				clear:both;
 				li {
 					float:left;
 					position:relative;
@@ -100,7 +103,6 @@ body {
 						}
 					}
 				}
-				clear:both;
 			}
 		}
 	}

@@ -39,7 +39,6 @@ var GameVM = function(){};
 var _setCurrentQuestion = function(){
     var q = new Question(this.questions()[this.currentQuestion()]);
     this.question(q);
-    m.redraw();
 };
 
 var _nextQuestion = function(){
@@ -48,8 +47,9 @@ var _nextQuestion = function(){
 
     this.gameOver(isEnd);
     if(! isEnd) {
+        this.questionShown(false);
         this.currentQuestion(current);
-        _setCurrentQuestion.call();
+        _setCurrentQuestion.call(this);
     }
 };
 
@@ -72,16 +72,20 @@ GameVM.prototype.init = function(){
 };
 
 GameVM.prototype.startGame = function(){
-    setTimeout(_setCurrentQuestion.bind(this), 2000);
+    _setCurrentQuestion.call(this);
 };
 
-GameVM.prototype.endQuestion = function(){
-    this.endQuestion = m.prop(true);
+GameVM.prototype.stopQuestion = function(){
+    this.endQuestion(false);
+    this.question(new Question({ question : "", answers : [] }));
+};
+
+GameVM.prototype.nextQuestion = function(){
+    _nextQuestion.call(this);
 };
 
 GameVM.prototype.startQuestion = function(){
     this.timer(new Timer(GameModel.timer()));
-    m.redraw();
 };
 
 module.exports = GameVM;

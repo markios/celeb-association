@@ -9,8 +9,9 @@ var View = function(ctrl, answer){
 
     var animIn = function(el, isInitialized, context) {
         if (isInitialized && answer.toggled()) {
-            el.classList.toggle('selected');
-            Velocity(el, 'callout.pulse', { duration : 400 });
+            Velocity(el, 'callout.pulse', { duration : 400 }).then(function(){
+                el.classList.toggle('selected');
+            });
             answer.toggled(false);
         } else if(!isInitialized){
             var hammertime = new Hammer(el);
@@ -18,7 +19,7 @@ var View = function(ctrl, answer){
         }
     };
 
-    return m("li.opaque", {
+    return m("li.answer.opaque", {
         config : animIn,
         style : { backgroundImage : "url(" + answer.image() + ")" }
     }, [

@@ -13,7 +13,10 @@ var GameController = function(){
 */
 
 GameController.prototype.ready = function(){
-	this.VM.startGame();
+	setTimeout(function(){
+		this.VM.startGame();
+		m.redraw();
+	}.bind(this), 1000);
 };
 
 GameController.prototype.toggle = function(ans){
@@ -23,12 +26,20 @@ GameController.prototype.toggle = function(ans){
 };
 
 GameController.prototype.onTime = function(){
-    this.VM.endQuestion();
+    this.VM.endQuestion(true);
+    m.redraw();
+};
+
+GameController.prototype.afterEndQuestion = function(){
+    this.VM.stopQuestion();
+    m.redraw();
+    this.VM.nextQuestion();
     m.redraw();
 };
 
 GameController.prototype.startQuestion = function(){
     this.VM.startQuestion();
+    m.redraw();
 };
 
 module.exports = GameController;

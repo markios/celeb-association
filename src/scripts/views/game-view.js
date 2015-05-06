@@ -10,7 +10,8 @@ var m = require('mithril'),
 var renderGamePage = function(ctrl, el){
     document.body.className = 'game';
     Velocity(el.children[0], { translateY : '+=170px' }, { duration : 500, delay : 300, easing : [ 250, 0 ] }).then(function(){
-        ctrl.VM.startGame();
+        ctrl.ready();
+        el.children[0].classList.toggle('in-game');
     });
 };
 
@@ -27,13 +28,27 @@ var renderQuestionUp = function(ctrl, el){
     });
 };
 
-var renderAnswers = function(ctrl, el){
+var renderAnswersOut = function(ctrl, el){
     // Velocity
+    var targets = document.getElementsByClassName('answer'),
+        questionNumber = document.getElementsByClassName('question-number'),
+        question = document.getElementsByClassName('current-question');
+
+    var sequence = [
+        { e : targets, p : 'transition.bounceOut', o : { duration : 500 } },
+        { e : question, p : 'transition.slideUpOut', o : { duration : 500 }  },
+        { e : questionNumber, p : 'reverse' }
+    ];
+
+    Velocity.RunSequence(sequence);
+    setTimeout(function(){
+        ctrl.afterEndQuestion();
+    }, 1500);
 };
 
 var renderStartQuestion = function(ctrl, el){
     // Show the questions
-    el.children[0].className += ' begin';
+    el.children[0].classList.toggle('begin');
 
     // get answers and remove weird init style
     var answers = document.getElementsByClassName('answers-area')[0];
@@ -53,9 +68,12 @@ var View = function(ctrl){
         // Decide what to do 
         if (!isInitialized) {
             renderGamePage(ctrl, el);
-        } else if(ctrl.VM.endQuestion()){
-
         }
+        // end of question
+        else if(ctrl.VM.endQuestion()){
+            renderAnswersOut(ctrl, el);
+        }
+        // show the question
         else if(!ctrl.VM.gameOver() && !ctrl.VM.questionShown()){
             renderStartQuestion(ctrl, el);
         }

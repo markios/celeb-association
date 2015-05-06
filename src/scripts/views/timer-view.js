@@ -11,6 +11,7 @@ var View = function(ctrl, timer){
         if(!timer.isActive()){
             Velocity(el, { width : '100%' }, { duration : timer.time(), easing : 'linear' }).then(function(){
                 ctrl.onTime();
+                Velocity(el, { width : 0 },  { duration : 200 });
             });
             timer.isActive(true);
         }
