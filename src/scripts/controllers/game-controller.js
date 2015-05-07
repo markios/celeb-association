@@ -21,6 +21,8 @@ GameController.prototype.ready = function(){
 };
 
 GameController.prototype.toggle = function(ans){
+	if(this.VM.locked()) return console.log('blocked');
+
 	var answerIsSelected = ans.selected();
 	if(this.VM.question().guessLimitReached() && !answerIsSelected){
 		ans.toggleRejected(true);
@@ -34,6 +36,7 @@ GameController.prototype.toggle = function(ans){
 };
 
 GameController.prototype.onTime = function(){
+    this.VM.locked(true);
     this.VM.endQuestion(true);
     m.redraw();
 };

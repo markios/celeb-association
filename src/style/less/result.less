@@ -15,19 +15,74 @@ body {
 		margin:0 auto;
 		height:100%;
 		width:100%;
+		position:relative;
 		.box-sizing;
 		> * {
 			color:@offBlack;
 		}
+		.result-image {
+			width:150px;
+			height:200px;
+			margin:0 auto;
+			background-size:auto 100%;
+			background-repeat:no-repeat;
+		}
+		.result {
+			text-align:center;
+		}
+		
+		p {
+			.header-font;
+			text-align:center;
+		}
+
+		.btn {
+			position:absolute;
+			bottom:20px;
+			height:40px;
+			line-height:40px;
+			text-align:center;
+			color:@white;
+		}
+
+		.replay {
+			background-color:@Blue;
+		}
+		.level2 {
+			background-color:@Pink;
+		}
+
 	}
 }
 
 /* web ipad */
 @media only screen and (min-width: @webLower) {
-	
+	.result-holder { 
+		padding:100px;
+	}
+	.btn {
+		width:120px;
+	}
+	.replay { 
+		left:40px;
+	}
+	.level2 {
+		right:40px;
+	}
 }	
 
 /* mobile */
 @media only screen and (min-width: @mobileLower) and (max-width: @mobileUpper) {
-    
+    .result-holder { 
+		padding:50px;
+	}
+	.btn {
+		width:100px;
+	}
+	.replay { 
+		left:20px;
+	}
+	.level2 {
+		right:20px;
+	}
 }

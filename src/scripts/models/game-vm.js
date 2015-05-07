@@ -100,6 +100,7 @@ GameVM.prototype.init = function(){
     this.question = m.prop(new Question({ question : "", answers : [] }));
     
     // View Queues 
+    this.locked = m.prop(true);
     this.questionShown = m.prop(false);
     this.endQuestion = m.prop(false);
 };
@@ -124,6 +125,7 @@ GameVM.prototype.updateScore = function(){
 
 GameVM.prototype.startQuestion = function(){
     this.timer(new Timer(GameModel.timer()));
+    this.locked(false);
 };
 
 module.exports = GameVM;

@@ -42,7 +42,7 @@ var renderAnswersOut = function(ctrl, el){
     var sequence = [
         { e : targets, p : 'transition.bounceOut', o : { duration : 500 } },
         { e : question, p : 'transition.slideUpOut', o : { duration : 500 } },
-        { e : limit, p : 'fadeOut', o : { duration : 200 }, o : { complete : ctrl.afterEndQuestion.bind(ctrl) } }
+        { e : limit, p : 'fadeOut', o : { duration : 200 , complete : ctrl.afterEndQuestion.bind(ctrl) } }
         
     ];
 

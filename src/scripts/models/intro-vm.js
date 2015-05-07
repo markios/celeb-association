@@ -2,6 +2,7 @@
 /* Global module */
 
 var m = require('mithril'),
+	_ = require('lodash'),
     GameModel = require('./../models/game-model');
 
 var IntroVM = function(){};
@@ -13,7 +14,7 @@ IntroVM.prototype.init = function(){
     this.title = m.prop(GameModel.title());
     this.description = m.prop(GameModel.description());
     this.begin = m.prop(false);
-    this.brand = m.prop(GameModel.brands()[0]);
+    this.brand = m.prop(_.findWhere(GameModel.assets(), { name : 'brand' }).image);
     this.begin = m.prop(false);
 };
 

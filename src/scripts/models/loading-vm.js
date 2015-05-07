@@ -34,15 +34,17 @@ var _preload = function(){
 */
 LoadingVM.prototype.init = function(){
     var questions = GameModel.questions(),
+        assets = GameModel.assets(),
         entities = [];
 
     _.each(questions, function(q){
         entities = _.union(entities, _.pluck(q.answers, 'image'));
     });
+    entities = _.union(entities, _.pluck(assets, 'image'));
 
     this.loaded = m.prop(false);
     this.progress = m.prop(0);
-    this.targets = m.prop(entities.concat(GameModel.brands()));
+    this.targets = m.prop(entities);
     this.targetsLoaded = m.prop(0);
     _preload.call(this);
 };
