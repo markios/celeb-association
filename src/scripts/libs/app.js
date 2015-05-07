@@ -5,6 +5,8 @@ var m = require('mithril'),
 	v = require('velocity-animate/velocity.ui'),
 	gameController = require('../controllers/game-controller'),
 	gameView = require('../views/game-view'),
+	resultController = require('../controllers/result-controller'),
+	resultView = require('../views/result-view'),
 	introController = require('../controllers/intro-controller'),
 	introView = require('../views/intro-view'),
 	loadingController = require('../controllers/loading-controller'),
@@ -15,7 +17,8 @@ var application = function(){
 	var app = {
 		loading : { controller: loadingController, view: loadingView },
 		intro   : { controller: introController,   view: introView },
-		game	: { controller: gameController, view: gameView }
+		game	: { controller: gameController, view: gameView },
+		result  : { controller: resultController, view: resultView },
 	}
 
 	m.route.mode = "hash";
@@ -23,7 +26,8 @@ var application = function(){
 	m.route(document.body, "/", {
 	    ""		 : app.loading,
 	    "/intro" : app.intro,
-	    "/game"  : app.game
+	    "/game"  : app.game,
+	    "/result": app.result
 	});
 };
 

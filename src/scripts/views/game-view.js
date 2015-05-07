@@ -14,6 +14,10 @@ var renderGamePage = function(ctrl, el){
     });
 };
 
+var renderOut = function(ctrl, el){
+    Velocity(el.children[0], 'reverse').then(ctrl.endGame.bind(ctrl));
+};
+
 var renderQuestionUp = function(ctrl, el){
     var target = document.getElementsByClassName('question-number'),
     limit = document.getElementsByClassName('limit'),
@@ -82,8 +86,7 @@ var View = function(ctrl){
         }
         // End of game 
         else if(ctrl.VM.gameOver()) {
-            // alert('score = ' + ctrl.VM.currentScore());
-            console.log(ctrl.VM.currentScore());
+            renderOut(ctrl, el);
         }
     };
 

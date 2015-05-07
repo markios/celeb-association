@@ -118,6 +118,10 @@ GameVM.prototype.nextQuestion = function(){
     _nextQuestion.call(this);
 };
 
+GameVM.prototype.updateScore = function(){
+    GameModel.score(this.currentScore());
+};
+
 GameVM.prototype.startQuestion = function(){
     this.timer(new Timer(GameModel.timer()));
 };

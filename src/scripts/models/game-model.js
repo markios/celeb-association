@@ -1,6 +1,7 @@
 'use strict';
 /* Global module */
-var m = require('mithril');
+var m = require('mithril'),
+	_ = require('lodash');
 
 /*
 	You would obtain this by xhr
@@ -44,11 +45,20 @@ var data = {
 };
 
 
+var _getMaxScore = function(){
+	var score = 0;
+	_.each(data.questions, function(q){
+		score += _.filter(q.answers, { correct : true }).length;
+	});
+	return score;
+};
+
 /*
 	Constructor
 */
 var GameModel = function(){
 	this.score 		= m.prop(data.score);
+	this.maxScore   = m.prop(_getMaxScore());
 	this.questions	= m.prop(data.questions);
 	this.brands     = m.prop(data.brands);
 	this.title		= m.prop(data.title);

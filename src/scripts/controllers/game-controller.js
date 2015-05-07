@@ -9,7 +9,6 @@ var GameController = function(){
 	this.VM.init();
 };
 
-
 /*
 	Public Members
 */
@@ -49,6 +48,11 @@ GameController.prototype.afterEndQuestion = function(){
 GameController.prototype.startQuestion = function(){
     this.VM.startQuestion();
     m.redraw();
+};
+
+GameController.prototype.endGame = function(){
+	this.VM.updateScore();
+	m.route("/result");
 };
 
 module.exports = GameController;
