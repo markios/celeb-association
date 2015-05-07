@@ -11,7 +11,8 @@ var ResultVM = function(){};
 */
 ResultVM.prototype.init = function(){
     this.score = m.prop(GameModel.score());
-    // this.highScore = 
+    this.highScore = m.prop(GameModel.maxScore());
+    this.resultMessages = m.prop(GameModel.resultMessages());
 };
 
 module.exports = ResultVM;

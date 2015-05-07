@@ -41,7 +41,14 @@ var data = {
 			{ image : 'http://img-a.zeebox.com/images/z/1b59c445-8f3e-46bd-ad57-c15a73c7a68a.png', name : 'Paul Wasilewski', correct : false },
 			{ image : 'http://img-a.zeebox.com/images/z/b3f91a63-e987-4ea7-81ab-586f930610ae.png', name : 'Jason Alexander', correct : true }
 		]
-	}]
+	}],
+	resultMessages : {
+		20  : "Oh oh….think you need to spend some time on the couch this weekend, honing in on your TV skills!",
+		40  : "Pretty good, although the pressure must have got the best of you…Try again!",
+		60  : "Great effort! You’re nearly amazing…nearly….why don’t you ask the Home Of Comedy TV Room for some help? Click here or try your luck again and play again!",
+		80  : "Amazing Stuff - you are at the top of the leaderboard! Near perfect! Be perfect…Play again!",
+		100 : "Genius…..you know your TV. Let’s see how you go on Level 2"
+	}
 };
 
 
@@ -62,6 +69,7 @@ var GameModel = function(){
 	this.questions	= m.prop(data.questions);
 	this.brands     = m.prop(data.brands);
 	this.title		= m.prop(data.title);
+	this.resultMessages = m.prop(data.resultMessages);
 	this.description= m.prop(data.description);
 	this.timer = m.prop(data.timer || 5);
 };
