@@ -16,8 +16,8 @@ var renderGamePage = function(ctrl, el){
 
 var renderQuestionUp = function(ctrl, el){
     var target = document.getElementsByClassName('question-number'),
-        limit = document.getElementsByClassName('limit'),
-        question = document.getElementsByClassName('current-question');
+    limit = document.getElementsByClassName('limit'),
+    question = document.getElementsByClassName('current-question');
 
     var sequence = [
         { e : target, p : { left : '50px', top : '20px', fontSize : '0.9rem' } },
@@ -38,8 +38,8 @@ var renderAnswersOut = function(ctrl, el){
     var sequence = [
         { e : targets, p : 'transition.bounceOut', o : { duration : 500 } },
         { e : question, p : 'transition.slideUpOut', o : { duration : 500 } },
-        { e : limit, p : 'fadeOut', o : { duration : 200 } },
-        { e : questionNumber, p : 'reverse', o : { complete : ctrl.afterEndQuestion.bind(ctrl) } }
+        { e : limit, p : 'fadeOut', o : { duration : 200 }, o : { complete : ctrl.afterEndQuestion.bind(ctrl) } }
+        
     ];
 
     Velocity.RunSequence(sequence);
@@ -55,10 +55,14 @@ var renderStartQuestion = function(ctrl, el){
     answers.style.display = 'block';
     
     // Show the answers
-    var ul = answers.children[0];
-    Velocity(ul.children, 'transition.bounceIn', { stagger : '200ms' }).then(function(){
-        renderQuestionUp(ctrl, el);
-    });
+    var ul = answers.children[0],
+        questionNumber = document.getElementsByClassName('question-number'),
+        sequence = [
+            { e : ul.children, p : 'transition.bounceIn', o : { stagger : '200ms', complete : renderQuestionUp.bind(this, ctrl, el) } }
+        ];
+
+    if(ctrl.VM.currentQuestion() > 0) sequence.unshift({ e : questionNumber, p : 'reverse' });
+    Velocity.RunSequence(sequence);
     ctrl.VM.questionShown(true);
 };
 
