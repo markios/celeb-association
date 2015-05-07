@@ -8,14 +8,19 @@ var m = require('mithril'),
 var View = function(ctrl, answer){
 
     var animIn = function(el, isInitialized, context) {
-        if (isInitialized && answer.toggled()) {
+        if (answer.toggled()) {
             Velocity(el, 'callout.pulse', { duration : 400 }).then(function(){
                 el.classList.toggle('selected');
             });
             answer.toggled(false);
-        } else if(!isInitialized){
+        } 
+        else if(answer.toggleRejected()){
+            Velocity(el, 'callout.shake', { duration : 400 });
+            answer.toggleRejected(false);
+        }
+        else if(!isInitialized){
             var hammertime = new Hammer(el);
-            hammertime.on('tap', ctrl.toggle.bind(this, answer));
+            hammertime.on('tap', ctrl.toggle.bind(ctrl, answer));
         }
     };
 

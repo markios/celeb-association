@@ -8,6 +8,8 @@ var GameController = function(){
 	this.VM = new gameViewModel();
 	this.VM.init();
 };
+
+
 /*
 	Public Members
 */
@@ -20,8 +22,15 @@ GameController.prototype.ready = function(){
 };
 
 GameController.prototype.toggle = function(ans){
-	ans.selected(!ans.selected());
-	ans.toggled(true);
+	var answerIsSelected = ans.selected();
+	if(this.VM.question().guessLimitReached() && !answerIsSelected){
+		ans.toggleRejected(true);
+	} else {
+		ans.selected(!ans.selected());
+		ans.toggled(true);
+		// count the guesses again
+		this.VM.question().countGuess();
+	}
 	m.redraw();
 };
 

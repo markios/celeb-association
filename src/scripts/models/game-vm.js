@@ -10,15 +10,15 @@ var Answer = function(d){
     this.name = m.prop(d.name);
     this.selected = m.prop(false);
     this.correct = m.prop(d.correct);
+    
+    // view markers
     this.toggled = m.prop(false);
+    this.toggleRejected = m.prop(false);
 };
 
 Answer.prototype.getScore = function(){
     var score = 0;
-
     if(this.selected() && this.correct()) score = 1;
-    else if(this.selected() && ! this.correct()) score = -1;
-
     return score;
 };
 
@@ -27,6 +27,18 @@ var Question = function(d){
     this.answers = m.prop(_.map(d.answers, function(a){
         return new Answer(a);
     }));
+    this.limit = m.prop(_.filter(d.answers, { correct : true }).length);
+    this.guesses = m.prop(0);
+};
+
+Question.prototype.guessLimitReached = function(){
+    return this.guesses() === this.limit();
+};
+
+Question.prototype.countGuess = function(){
+    this.guesses(_.filter(this.answers(), function(ans){
+        return ans.selected();
+    }).length);
 };
 
 var Timer = function(time){

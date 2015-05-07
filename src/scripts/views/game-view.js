@@ -16,33 +16,33 @@ var renderGamePage = function(ctrl, el){
 
 var renderQuestionUp = function(ctrl, el){
     var target = document.getElementsByClassName('question-number'),
+        limit = document.getElementsByClassName('limit'),
         question = document.getElementsByClassName('current-question');
 
-    Velocity(target, {
-        left : '50px',
-        top : '20px',
-        fontSize : '0.9rem'
-    }).then(function(){
-        Velocity(question, 'transition.slideUpIn').then(ctrl.startQuestion.bind(ctrl));
-    });
+    var sequence = [
+        { e : target, p : { left : '50px', top : '20px', fontSize : '0.9rem' } },
+        { e : question,  p : 'transition.slideUpIn' },
+        { e : limit, p : 'transition.bounceIn', o : { complete : ctrl.startQuestion.bind(ctrl) } }
+    ];
+
+    Velocity.RunSequence(sequence);
 };
 
 var renderAnswersOut = function(ctrl, el){
     // Velocity
     var targets = document.getElementsByClassName('answer'),
+        limit = document.getElementsByClassName('limit'),
         questionNumber = document.getElementsByClassName('question-number'),
         question = document.getElementsByClassName('current-question');
 
     var sequence = [
         { e : targets, p : 'transition.bounceOut', o : { duration : 500 } },
-        { e : question, p : 'transition.slideUpOut', o : { duration : 500 }  },
-        { e : questionNumber, p : 'reverse' }
+        { e : question, p : 'transition.slideUpOut', o : { duration : 500 } },
+        { e : limit, p : 'fadeOut', o : { duration : 200 } },
+        { e : questionNumber, p : 'reverse', o : { complete : ctrl.afterEndQuestion.bind(ctrl) } }
     ];
 
     Velocity.RunSequence(sequence);
-    setTimeout(function(){
-        ctrl.afterEndQuestion();
-    }, 1500);
 };
 
 var renderStartQuestion = function(ctrl, el){
@@ -78,7 +78,8 @@ var View = function(ctrl){
         }
         // End of game 
         else if(ctrl.VM.gameOver()) {
-            alert('score = ' + ctrl.VM.currentScore());
+            // alert('score = ' + ctrl.VM.currentScore());
+            console.log(ctrl.VM.currentScore());
         }
     };
 
@@ -90,7 +91,8 @@ var View = function(ctrl){
                 timerView(ctrl, ctrl.VM.timer()),
                 m('h3.intro', 'Get ready'),
                 m('h3.question-number', "question " + (+ctrl.VM.currentQuestion() + 1)),
-                m('h3.current-question.opaque', ctrl.VM.question().text())
+                m('h3.current-question.opaque', ctrl.VM.question().text()),
+                m('h4.limit.opaque', ['Choose ', m('span', ctrl.VM.question().limit())])
             ]),
             m('.answers-area', [
                 m("ul", [

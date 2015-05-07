@@ -41,6 +41,7 @@ body {
 				top:50px;
   				padding:0;
   				text-transform:capitalize;
+  				color:@grayMiddle;
 			}
 			.current-question, .intro {
 				position:relative;
@@ -48,6 +49,15 @@ body {
 				text-align:center;
 				margin-top: 60px;
   				padding: 10px;
+			}
+			.limit {
+				position:absolute;
+				top:15px;
+				right:20px;
+				color:@grayMiddle;
+				span {
+					color:@Pink;
+				}
 			}
 			&.begin {
 				.intro {
@@ -111,6 +121,9 @@ body {
 	.game-holder {
 		max-width:700px;
 	}
+	h4 {
+		font-size:0.9rem;
+	}
 	.answers-area {
 		top:140px;
 		ul {
@@ -123,6 +136,12 @@ body {
 
 /* mobile */
 @media only screen and (min-width: @mobileLower) and (max-width: @mobileUpper) {
+	h3 {
+		font-size:1rem;
+	}
+	h4 {
+		font-size:0.9rem;
+	}
 	.answers-area {
 		top:150px;
 		width:320px;
