@@ -21,7 +21,7 @@ GameController.prototype.ready = function(){
 };
 
 GameController.prototype.toggle = function(ans){
-	if(this.VM.locked()) return console.log('blocked');
+	if(this.VM.locked()) return;
 
 	var answerIsSelected = ans.selected();
 	if(this.VM.question().guessLimitReached() && !answerIsSelected){

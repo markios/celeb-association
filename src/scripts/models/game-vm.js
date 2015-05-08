@@ -3,6 +3,7 @@
 
 var m = require('mithril'),
     _ = require('lodash'),
+    utils = require('./../libs/utils'),
     GameModel = require('./../models/game-model');
 
 var Answer = function(d){
@@ -24,11 +25,12 @@ Answer.prototype.getScore = function(){
 
 var Question = function(d){
     this.text = m.prop(d.question);
+    this.questionElement = m.prop(utils.shorthandToMithrilArray(d.question));
     this.answers = m.prop(_.map(d.answers, function(a){
         return new Answer(a);
     }));
-    this.limit = m.prop(_.filter(d.answers, { correct : true }).length);
     this.guesses = m.prop(0);
+    this.limit = m.prop(_.filter(d.answers, { correct : true }).length);
 };
 
 Question.prototype.guessLimitReached = function(){
@@ -56,6 +58,10 @@ var GameVM = function(){};
 /*
     Private Members
 */
+
+var _clearQuestion = function(){
+    return new Question({ question : "", answers : [] });
+};
 
 // You can get negative scores!!
 var _updateScore = function(){
@@ -86,6 +92,8 @@ var _nextQuestion = function(){
     }
 };
 
+
+
 /*
     Public Members
 */
@@ -97,7 +105,7 @@ GameVM.prototype.init = function(){
     this.questions = m.prop(questions);
     this.totalQuestions = m.prop(questions.length);
     this.gameOver = m.prop(false);
-    this.question = m.prop(new Question({ question : "", answers : [] }));
+    this.question = m.prop(_clearQuestion());
     
     // View Queues 
     this.locked = m.prop(true);
@@ -112,7 +120,7 @@ GameVM.prototype.startGame = function(){
 GameVM.prototype.stopQuestion = function(){
     this.endQuestion(false);
     _updateScore.call(this);
-    this.question(new Question({ question : "", answers : [] }));
+    this.question(_clearQuestion());
 };
 
 GameVM.prototype.nextQuestion = function(){
@@ -120,7 +128,7 @@ GameVM.prototype.nextQuestion = function(){
 };
 
 GameVM.prototype.updateScore = function(){
-    GameModel.score(this.currentScore());
+    GameModel.saveScore(this.currentScore());
 };
 
 GameVM.prototype.startQuestion = function(){

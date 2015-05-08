@@ -24,8 +24,12 @@ var _calcMessage = function(){
 	return result;
 };
 
-var _calcScoreBoard = function(){
-
+var _calcTopFive = function(previousScores){
+    if(previousScores.length <= 1) return previousScores;
+    previousScores = _.sortBy(previousScores, function(s){
+        return -s.score;
+    });
+    return previousScores.slice(0,5);
 };
 
 var _getResultImage = function(){
@@ -39,11 +43,12 @@ ResultVM.prototype.init = function(){
     this.score = m.prop(GameModel.score());
     this.highScore = m.prop(GameModel.highScore());
     this.resultMessages = m.prop(GameModel.resultMessages());
-    this.message = m.prop(_calcMessage.call(this));
     this.assets = m.prop(GameModel.assets());
-    this.previousScores = m.prop(GameModel.previousScores());
-    this.scoreBoard = m.prop(_calcScoreBoard.call(this));
+    
+    // Derivative Data
     this.resultImage = m.prop(_getResultImage.call(this));
+	this.scoreBoard = m.prop(_calcTopFive(GameModel.previousScores()));
+    this.message = m.prop(_calcMessage.call(this));
 };
 
 module.exports = ResultVM;

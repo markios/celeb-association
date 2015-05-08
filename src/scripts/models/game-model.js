@@ -3,6 +3,8 @@
 var m = require('mithril'),
 	_ = require('lodash');
 
+var CONST_KEY = 'show-star-beta';
+
 /*
 	You would obtain this by xhr
 */
@@ -18,7 +20,7 @@ var data = {
 		 { name : 'trophy', image : 'http://img-a.zeebox.com/images/z/9ecda2e2-6d09-48dd-a166-32ec232bdb8b.png' }
 	],
 	questions :[{
-		question : "Which of the following appeared in the 90's sitcom Friends",
+		question : "_Choose 3_ of the following appeared in the 90's sitcom _Friends_",
 		answers  : [
 			{ image : 'http://img-a.zeebox.com/images/z/ca511030-f77e-46df-a1a9-10586284a38b.png', name : 'Lisa Kudrow', correct : true },
 			{ image : 'http://img-a.zeebox.com/images/z/b33cb262-e175-44f4-a58e-42523391fb5d.png', name : 'Matt Le Blanc', correct : true },
@@ -32,7 +34,7 @@ var data = {
 		]
 	},
 	{
-		question : "Going back a little further, who starred in the cult classic Seinfeld?",
+		question : "Going back a little further, _Choose 3_ who starred in the cult classic _Seinfeld_?",
 		answers  : [
 			{ image : 'http://img-a.zeebox.com/images/z/21d9a055-b1c6-4d4d-a4b6-51319fc65165.png', name : 'David Schwimmer', correct : false },
 			{ image : 'http://img-a.zeebox.com/images/z/ca511030-f77e-46df-a1a9-10586284a38b.png', name : 'Lisa Kudrow', correct : false },
@@ -46,7 +48,7 @@ var data = {
 		]
 	},
 	{
-		question : "Which of the following actors appeared in Community",
+		question : "Which of the following _3 Actors_ appeared in _Community_",
 		answers  : [
 			{ image : 'http://img-a.zeebox.com/images/z/1b10f366-15a1-4c38-9ad6-42942a05c20a.png', name : 'Ryan Seacrest', correct : false },
 			{ image : 'http://img-a.zeebox.com/images/z/989bbe49-753e-4234-885d-1929314a371e.png', name : 'Frank Abagnale jr', correct : false },
@@ -58,10 +60,9 @@ var data = {
 			{ image : 'http://img-a.zeebox.com/images/z/cf3f7e17-b850-4a12-8da6-8cd5aad4a5ba.png', name : 'Alomoa Wright', correct : false },
 			{ image : 'http://img-a.zeebox.com/images/z/5296bcd0-6f6a-41c9-be27-b7a1e0bea458.png', name : 'Joel McHale', correct : true }
 		]
-	}
-	,
+	},
 	{
-		question : "Getting a little more modern, Silicon Valley?",
+		question : "Getting a little more modern, _Choose 5_ from HBO's _Silicon Valley_",
 		answers  : [
 			{ image : 'http://img-a.zeebox.com/images/z/f0aa487c-4b2e-4735-b963-c745ee1f7125.png', name : 'Zach Woods', correct : true },
 			{ image : 'http://img-a.zeebox.com/images/z/989bbe49-753e-4234-885d-1929314a371e.png', name : 'Frank Abagnale jr', correct : false },
@@ -94,6 +95,7 @@ var _getMaxScore = function(){
 };
 
 var _hasLocalStorage = function(){
+	var mod = 'xx';
 	try {
         localStorage.setItem(mod, mod);
         localStorage.removeItem(mod);
@@ -103,8 +105,18 @@ var _hasLocalStorage = function(){
     }
 };
 
-var _checkPreviousScores = function(){
+var _tryParse = function(target){
+	var result = [];
+	try {
+		return JSON.parse(target) || result;
+	} catch(e) {
+		return result;
+	}
+};
+
+var _getPreviousScores = function(){
 	if(!_hasLocalStorage()) return [];
+	return _tryParse(localStorage.getItem(CONST_KEY));
 };
 
 /*
@@ -112,14 +124,37 @@ var _checkPreviousScores = function(){
 */
 var GameModel = function(){
 	this.score 		= m.prop(0);
-	this.highScore   = m.prop(_getMaxScore());
+	this.highScore  = m.prop(_getMaxScore());
 	this.questions	= m.prop(data.questions);
 	this.assets     = m.prop(data.assets);
 	this.title		= m.prop(data.title);
 	this.resultMessages = m.prop(data.resultMessages);
 	this.description = m.prop(data.description);
 	this.timer = m.prop(data.timer || 5);
-	this.previousScores = m.prop([]);
+	this.previousScores = m.prop(_getPreviousScores());
 };
 
+/*
+	Public Members
+*/
+
+GameModel.prototype.saveScore = function(score){
+	
+	this.score(score);
+
+	// Update previous scores
+	var previousScores = this.previousScores();
+	previousScores.push({ date : Date.now(), score : score });
+	this.previousScores(previousScores);
+
+	// save in local storage where available
+	if(! _hasLocalStorage()) return;
+	localStorage.setItem(CONST_KEY, JSON.stringify(this.previousScores()));
+};
+
+
+
 module.exports = new GameModel();
+
+
+

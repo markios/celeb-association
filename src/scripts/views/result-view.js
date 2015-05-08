@@ -34,6 +34,13 @@ var View = function(ctrl, timer){
                 m('h1.result.opaque', ctrl.VM.score() + '/' + ctrl.VM.highScore()),
                 m('p.opaque', ctrl.VM.message())
             ]),
+            m('.scores.opaque', [
+                m('ol', [
+                    ctrl.VM.scoreBoard().map(function(s) {
+                        return m('li', s.score + ' points');
+                    })
+                ])
+            ]),
             m('a.btn.replay.opaque[href="#/game"]', 'Try Again'),
             m('a.btn.level2.opaque', 'Level 2')
         ])

@@ -43,7 +43,6 @@ var renderAnswersOut = function(ctrl, el){
         { e : targets, p : 'transition.bounceOut', o : { duration : 500 } },
         { e : question, p : 'transition.slideUpOut', o : { duration : 500 } },
         { e : limit, p : 'fadeOut', o : { duration : 200 , complete : ctrl.afterEndQuestion.bind(ctrl) } }
-        
     ];
 
     Velocity.RunSequence(sequence);
@@ -98,7 +97,7 @@ var View = function(ctrl){
                 timerView(ctrl, ctrl.VM.timer()),
                 m('h3.intro', 'Get ready'),
                 m('h3.question-number', "question " + (+ctrl.VM.currentQuestion() + 1)),
-                m('h3.current-question.opaque', ctrl.VM.question().text()),
+                m('h3.current-question.opaque', ctrl.VM.question().questionElement()),
                 m('h4.limit.opaque', ['Choose ', m('span', ctrl.VM.question().limit())])
             ]),
             m('.answers-area', [
