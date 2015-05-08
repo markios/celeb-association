@@ -142,10 +142,14 @@ GameModel.prototype.saveScore = function(score){
 	
 	this.score(score);
 
-	// Update previous scores
-	var previousScores = this.previousScores();
-	previousScores.push({ date : Date.now(), score : score });
+	// Update previous scores setting the latest score as only one of that score
+	var previousScores = this.previousScores(),
+		newScore = { date : Date.now(), score : score };
+	previousScores = _.without(items, _.findWhere(items, { score : score }));
+	previousScores.push(newScore);
 	this.previousScores(previousScores);
+
+	// var howIdDid = _.indexOf(newScore) + 1
 
 	// save in local storage where available
 	if(! _hasLocalStorage()) return;
