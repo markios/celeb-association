@@ -3,6 +3,7 @@
 
 var m = require('mithril'),
 	_ = require('lodash'),
+	utils = require('./../libs/utils'),
     GameModel = require('./../models/game-model');
 
 var ResultVM = function(){};
@@ -25,10 +26,18 @@ var _calcMessage = function(){
 };
 
 var _calcTopFive = function(previousScores){
-    if(previousScores.length <= 1) return previousScores;
+
+	// get friendly Time
+	_.each(previousScores, function(score){
+		score.friendlyTime = utils.relativeTime(score.date);
+	});
+
+	if(previousScores.length <= 1) return previousScores;
+
     previousScores = _.sortBy(previousScores, function(s){
         return -s.score;
     });
+    
     return previousScores.slice(0,5);
 };
 

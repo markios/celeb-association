@@ -37,7 +37,10 @@ var View = function(ctrl, timer){
             m('.scores.opaque', [
                 m('ol', [
                     ctrl.VM.scoreBoard().map(function(s) {
-                        return m('li', s.score + ' points');
+                        return m('li', [
+                            s.score + ' points',
+                            m('span', s.friendlyTime)
+                        ]);
                     })
                 ])
             ]),
