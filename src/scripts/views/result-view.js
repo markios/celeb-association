@@ -6,10 +6,20 @@ var m = require('mithril'),
 
 var View = function(ctrl, timer){
 
+    var renderScoreboardIn = function(){
+        var result = document.getElementsByClassName('results')[0],
+            scores = document.getElementsByClassName('scores')[0].children[0];
+
+        var sequence = [
+            { e : result.children, p : 'transition.expandOut', o : { delay : 1000 } },
+            { e : scores.children, p : 'transition.slideLeftBigIn', o : { stagger : 200 } }
+        ];
+        Velocity.RunSequence(sequence);
+    };
 
     var renderReplay = function(){
         var a = document.getElementsByClassName('btn');
-        Velocity(a, 'fadeIn', { stagger : 200 });
+        Velocity(a, 'fadeIn', { stagger : 200, complete : renderScoreboardIn.bind(this) });
     };
 
     var animIn = function(el, isInitialized, context) {
@@ -34,10 +44,10 @@ var View = function(ctrl, timer){
                 m('h1.result.opaque', ctrl.VM.score() + '/' + ctrl.VM.highScore()),
                 m('p.opaque', ctrl.VM.message())
             ]),
-            m('.scores.opaque', [
+            m('.scores', [
                 m('ol', [
                     ctrl.VM.scoreBoard().map(function(s, i) {
-                        return m('li', [
+                        return m('li.opaque', [
                             m('.score-item', { class : i === 0 ? 'first' : '' }, [
                                 s.score + ' points ',
                                 m('span', s.friendlyTime)
