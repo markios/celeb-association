@@ -145,7 +145,7 @@ GameModel.prototype.saveScore = function(score){
 	// Update previous scores setting the latest score as only one of that score
 	var previousScores = this.previousScores(),
 		newScore = { date : Date.now(), score : score };
-	previousScores = _.without(items, _.findWhere(items, { score : score }));
+	previousScores = _.without(previousScores, _.findWhere(previousScores, { score : score }));
 	previousScores.push(newScore);
 	this.previousScores(previousScores);
 
