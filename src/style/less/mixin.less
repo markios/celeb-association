@@ -1,3 +1,25 @@
+.ribbon {
+    position:relative;
+    color: #ffffff;
+    text-shadow: 1px 2px 5px rgba(0,0,0,.5);
+    inset: 0px 0px 20px rgba(0,0,0,0.1), 0px 1px 1px rgba(0,0,0,0.4);
+    .gradient(@YellowBorder, @YellowBorderDark);
+    &:after {
+      content: "";
+      width:.2em;
+      bottom:-.5em;
+      position:absolute;
+      display:block;
+      border: .9em solid @Yellow;
+      z-index:-2;
+    }
+    &:after {
+      right:-1.35em;
+      border-left-width: .75em;
+      border-right-color:transparent;
+    }
+}
+
 .out-left(@out) {
    left:@out;
 }
@@ -8,6 +30,15 @@
 
 .out-top(@out) {
    top:@out;
+}
+
+.gradient (@startColor: #eee, @endColor: white) {
+  background-color: @startColor;
+  background: -webkit-gradient(linear, left top, left bottom, from(@startColor), to(@endColor));
+  background: -webkit-linear-gradient(top, @startColor, @endColor);
+  background: -moz-linear-gradient(top, @startColor, @endColor);
+  background: -ms-linear-gradient(top, @startColor, @endColor);
+  background: -o-linear-gradient(top, @startColor, @endColor);
 }
 
 .skewed(@background){

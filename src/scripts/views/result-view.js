@@ -36,10 +36,12 @@ var View = function(ctrl, timer){
             ]),
             m('.scores.opaque', [
                 m('ol', [
-                    ctrl.VM.scoreBoard().map(function(s) {
+                    ctrl.VM.scoreBoard().map(function(s, i) {
                         return m('li', [
-                            s.score + ' points',
-                            m('span', s.friendlyTime)
+                            m('.score-item', { class : i === 0 ? 'first' : '' }, [
+                                s.score + ' points ',
+                                m('span', s.friendlyTime)
+                            ])
                         ]);
                     })
                 ])
