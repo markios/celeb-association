@@ -35,12 +35,14 @@ var renderQuestionUp = function(ctrl, el){
 var renderAnswersOut = function(ctrl, el){
     // Velocity
     var targets = document.getElementsByClassName('answer'),
+        falseAnswers = document.getElementsByClassName('js_falsy'),
         limit = document.getElementsByClassName('limit'),
         questionNumber = document.getElementsByClassName('question-number'),
         question = document.getElementsByClassName('current-question');
 
     var sequence = [
-        { e : targets, p : 'transition.bounceOut', o : { duration : 500 } },
+        { e : falseAnswers, p : { opacity : 0.3 }, o : { duration : 500 } },
+        { e : targets, p : 'transition.bounceOut', o : { duration : 500, delay : 1500 } },
         { e : question, p : 'transition.slideUpOut', o : { duration : 500 } },
         { e : limit, p : 'fadeOut', o : { duration : 200 , complete : ctrl.afterEndQuestion.bind(ctrl) } }
     ];

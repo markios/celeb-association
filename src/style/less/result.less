@@ -37,15 +37,22 @@ body {
 			text-align:center;
 		}
 
+		.move-on {
+			margin-top:50px;
+		}
+
 		.scores {
 			width:210px;
 			margin:0 auto;
 			.header-font;
+			h3 {
+				text-align:center;
+			}
 			ol {
 				li {
 				  	margin: 8px 0;
 				  	.score-item {
-				  		padding:.34em 1em;
+				  		padding:.34em .5em;
 				  		span {
 				  			color:@grayText;
 				  			font-size:0.7rem;
@@ -53,6 +60,15 @@ body {
 				  		}
 				  		&.current {
 				  			color:@LightBlue;
+				  			position:relative;
+				  			&::after {
+				  				content:"";
+				  				display:block;
+				  				position: absolute;
+								left: -60px;
+								top: 6px;
+				  				.triangle(right, 20px, 20px, @LightBlue);
+				  			}
 				  		}
 				  	}
 				}

@@ -8,11 +8,16 @@ var View = function(ctrl, timer){
 
     var renderScoreboardIn = function(){
         var result = document.getElementsByClassName('results')[0],
-            scores = document.getElementsByClassName('scores')[0].children[0];
+            scoresArea = document.getElementsByClassName('scores')[0],
+            scoreTitle = scoresArea.children[0],
+            moveOn = document.getElementsByClassName('move-on')[0],
+            scores = scoresArea.children[1];
 
         var sequence = [
-            { e : result.children, p : 'transition.expandOut', o : { delay : 1000 } },
-            { e : scores.children, p : 'transition.slideLeftBigIn', o : { stagger : 200 } }
+            { e : result.children, p : 'transition.expandOut', o : { delay : 1500 } },
+            { e : scoreTitle, p : 'transition.fadeIn' },
+            { e : scores.children, p : 'transition.slideLeftBigIn', o : { stagger : 200 } },
+            { e : moveOn, p : 'transition.fadeIn' }
         ];
         Velocity.RunSequence(sequence);
     };
@@ -45,7 +50,8 @@ var View = function(ctrl, timer){
                 m('p.opaque', ctrl.VM.message())
             ]),
             m('.scores', [
-                m('ol', [
+                m('h3.opaque', 'Your Scores'),
+                m('ol.my-scores', [
                     ctrl.VM.scoreBoard().map(function(s, i) {
                         var className = '';
                         className +=  (i === 0) ? 'first' : '';
@@ -60,6 +66,7 @@ var View = function(ctrl, timer){
                     })
                 ])
             ]),
+            m('p.move-on.opaque', 'You scored ' + ctrl.VM.score() + 'pts, Get above 10 pts to move onto Level 2. Well you would if there was a level 2, but there could be....'),
             m('a.btn.replay.opaque[href="#/game"]', 'Try Again'),
             m('a.btn.level2.opaque', 'Level 2')
         ])

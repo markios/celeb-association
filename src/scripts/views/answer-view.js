@@ -26,6 +26,7 @@ var View = function(ctrl, answer){
 
     return m("li.answer.opaque", {
         config : animIn,
+        class : !answer.correct() ? 'js_falsy' : '',
         style : { backgroundImage : "url(" + answer.image() + ")" }
     }, [
         m("h4.name", answer.name())
