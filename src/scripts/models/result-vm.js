@@ -79,6 +79,7 @@ ResultVM.prototype.init = function(){
     this.highScore = m.prop(GameModel.highScore());
     this.resultMessages = m.prop(GameModel.resultMessages());
     this.assets = m.prop(GameModel.assets());
+    this.endMessage = m.prop(GameModel.endMessage());
     
     // Derivative Data
 	this.scoreBoard = m.prop(_calcTopFive(GameModel.previousScores(), this.score()));

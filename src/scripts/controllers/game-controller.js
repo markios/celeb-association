@@ -48,6 +48,9 @@ GameController.prototype.afterEndQuestion = function(){
     m.redraw();
 };
 
+/*
+	Start the timer off and begin the question
+*/
 GameController.prototype.startQuestion = function(){
     this.VM.startQuestion();
     m.redraw();

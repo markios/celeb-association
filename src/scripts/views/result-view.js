@@ -14,7 +14,7 @@ var View = function(ctrl, timer){
             scores = scoresArea.children[1];
 
         var sequence = [
-            { e : result.children, p : 'transition.expandOut', o : { delay : 1500 } },
+            { e : result.children, p : 'transition.expandOut', o : { delay : 5000 } },
             { e : scoreTitle, p : 'transition.fadeIn' },
             { e : scores.children, p : 'transition.slideLeftBigIn', o : { stagger : 200 } },
             { e : moveOn, p : 'transition.fadeIn' }
@@ -66,7 +66,7 @@ var View = function(ctrl, timer){
                     })
                 ])
             ]),
-            m('p.move-on.opaque', 'You scored ' + ctrl.VM.score() + 'pts, Get above 10 pts to move onto Level 2. Well you would if there was a level 2, but there could be....'),
+            m('p.move-on.opaque', ['You scored ', m('span', ctrl.VM.score() + 'pts'), ', ' + ctrl.VM.endMessage()]),
             m('a.btn.replay.opaque[href="#/game"]', 'Try Again'),
             m('a.btn.level2.opaque', 'Level 2')
         ])

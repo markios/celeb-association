@@ -9,9 +9,8 @@ var View = function(ctrl, answer){
 
     var animIn = function(el, isInitialized, context) {
         if (answer.toggled()) {
-            Velocity(el, 'callout.pulse', { duration : 400 }).then(function(){
-                el.classList.toggle('selected');
-            });
+            el.classList.toggle('selected');
+            Velocity(el, 'callout.pulse', { duration : 400 })
             answer.toggled(false);
         } 
         else if(answer.toggleRejected()){
