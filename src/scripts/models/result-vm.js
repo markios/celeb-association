@@ -42,8 +42,33 @@ var _calcTopFive = function(previousScores, currentScore){
     return previousScores.slice(0,5);
 };
 
+var _getPerformanceAdj = function(){
+	var target = '',
+		index = _.findIndex(this.scoreBoard(), function(score){
+		return score.isCurrent;
+	});
+
+	switch(index){
+		case 0:
+			target = 'trophy';
+			break;
+		case 1:
+		case 2:
+			target = 'positive';
+			break;
+		case 3:
+		case 4:
+			target = 'moderate';
+			break;
+		default:
+			target = 'negative';
+	}
+
+	return target;
+};
+
 var _getResultImage = function(){
-	return _.findWhere(this.assets(), { name : 'trophy' }).image;
+	return _.findWhere(this.assets(), { name : this.performanceAdj() }).image;
 };
 
 /*
@@ -56,9 +81,10 @@ ResultVM.prototype.init = function(){
     this.assets = m.prop(GameModel.assets());
     
     // Derivative Data
-    this.resultImage = m.prop(_getResultImage.call(this));
 	this.scoreBoard = m.prop(_calcTopFive(GameModel.previousScores(), this.score()));
     this.message = m.prop(_calcMessage.call(this));
+    this.performanceAdj = m.prop(_getPerformanceAdj.call(this));
+    this.resultImage = m.prop(_getResultImage.call(this));
 };
 
 module.exports = ResultVM;
