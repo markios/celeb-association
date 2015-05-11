@@ -25,11 +25,12 @@ var _calcMessage = function(){
 	return result;
 };
 
-var _calcTopFive = function(previousScores){
+var _calcTopFive = function(previousScores, currentScore){
 
 	// get friendly Time
 	_.each(previousScores, function(score){
 		score.friendlyTime = utils.relativeTime(score.date);
+		score.isCurrent = +score.score === +currentScore;
 	});
 
 	if(previousScores.length <= 1) return previousScores;
@@ -56,7 +57,7 @@ ResultVM.prototype.init = function(){
     
     // Derivative Data
     this.resultImage = m.prop(_getResultImage.call(this));
-	this.scoreBoard = m.prop(_calcTopFive(GameModel.previousScores()));
+	this.scoreBoard = m.prop(_calcTopFive(GameModel.previousScores(), this.score()));
     this.message = m.prop(_calcMessage.call(this));
 };
 

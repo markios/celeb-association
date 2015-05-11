@@ -47,8 +47,12 @@ var View = function(ctrl, timer){
             m('.scores', [
                 m('ol', [
                     ctrl.VM.scoreBoard().map(function(s, i) {
+                        var className = '';
+                        className +=  (i === 0) ? 'first' : '';
+                        className +=  s.isCurrent ? ' current' : '';
+
                         return m('li.opaque', [
-                            m('.score-item', { class : i === 0 ? 'first' : '' }, [
+                            m('.score-item', { class : className }, [
                                 s.score + ' points ',
                                 m('span', s.friendlyTime)
                             ])
