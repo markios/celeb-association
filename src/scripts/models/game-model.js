@@ -20,7 +20,8 @@ var data = {
 		 { name : 'trophy',   image : 'http://img-a.zeebox.com/images/z/9ecda2e2-6d09-48dd-a166-32ec232bdb8b.png' }
 	],
 	questions :[{
-		question : "_Choose 3_ of the following appeared in the 90's sitcom _Friends_",
+		question : ["_Choose 3_ of the following appeared in the 90's sitcom _Friends_"],
+		type : 'standard',
 		answers  : [
 			{ image : 'http://img-a.zeebox.com/images/z/ca511030-f77e-46df-a1a9-10586284a38b.png', name : 'Lisa Kudrow', correct : true },
 			{ image : 'http://img-a.zeebox.com/images/z/b33cb262-e175-44f4-a58e-42523391fb5d.png', name : 'Matt Le Blanc', correct : true },
@@ -34,7 +35,8 @@ var data = {
 		]
 	},
 	{
-		question : "Going back a little further, _Choose 3_ who starred in the cult classic _Seinfeld_?",
+		question : ["Going back a little further, _Choose 3_ who starred in the cult classic _Seinfeld_?"],
+		type : 'standard',
 		answers  : [
 			{ image : 'http://img-a.zeebox.com/images/z/21d9a055-b1c6-4d4d-a4b6-51319fc65165.png', name : 'David Schwimmer', correct : false },
 			{ image : 'http://img-a.zeebox.com/images/z/ca511030-f77e-46df-a1a9-10586284a38b.png', name : 'Lisa Kudrow', correct : false },
@@ -48,7 +50,8 @@ var data = {
 		]
 	},
 	{
-		question : "Now _Scrubs_ give me _4_",
+		question : ["Now _Scrubs_ give me _4_"],
+		type : 'standard',
 		answers  : [
 			{ image : 'http://img-a.zeebox.com/images/z/63c31d8d-2554-4230-a006-1df7766060a7.png', name : 'Chevy Chase', correct : false },
 			{ image : 'http://img-a.zeebox.com/images/z/fc2630dc-b37e-4203-99c5-0c8370af11ab.png', name : 'Ken Jenkins', correct : true },
@@ -62,7 +65,9 @@ var data = {
 		]
 	},
 	{
-		question : "Which of the following _3 Actors_ appeared in _Community_",
+		question : ["Take a look at this scene from _Community_", "Choose _2 Actors_ which appeared in that scene."],
+		type : "image",
+		image : "http://img-a.zeebox.com/images/z/5c180fcd-46c4-4162-9979-5e5ce600a6b2.jpg",
 		answers  : [
 			{ image : 'http://img-a.zeebox.com/images/z/1b10f366-15a1-4c38-9ad6-42942a05c20a.png', name : 'Ryan Seacrest', correct : false },
 			{ image : 'http://img-a.zeebox.com/images/z/989bbe49-753e-4234-885d-1929314a371e.png', name : 'Frank Abagnale jr', correct : false },
@@ -76,7 +81,8 @@ var data = {
 		]
 	},
 	{
-		question : "Getting a little more modern, _Choose 5_ from HBO's _Silicon Valley_",
+		question : ["Getting a little more modern, _Choose 5_ from HBO's _Silicon Valley_"],
+		type : 'standard',
 		answers  : [
 			{ image : 'http://img-a.zeebox.com/images/z/f0aa487c-4b2e-4735-b963-c745ee1f7125.png', name : 'Zach Woods', correct : true },
 			{ image : 'http://img-a.zeebox.com/images/z/989bbe49-753e-4234-885d-1929314a371e.png', name : 'Frank Abagnale jr', correct : false },

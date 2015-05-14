@@ -10,7 +10,7 @@ var _numberedString = function(target){
 	return target.replace(/_(.*?)_/g, function (match, text, number) {
         var res = '{' + index + '}';
         index++
-        return res;  
+        return res;
   	});
 };
 
@@ -35,13 +35,13 @@ module.exports = {
 	         return Math.round(elapsed/msPerHour ) + ' hours ago';
 	    }
 	    else if (elapsed < msPerMonth) {
-	        return Math.round(elapsed/msPerDay) + ' days ago';   
+	        return Math.round(elapsed/msPerDay) + ' days ago';
 	    }
 	    else if (elapsed < msPerYear) {
-	        return Math.round(elapsed/msPerMonth) + ' months ago';   
+	        return Math.round(elapsed/msPerMonth) + ' months ago';
 	    }
 	    else {
-	        return Math.round(elapsed/msPerYear ) + ' years ago';   
+	        return Math.round(elapsed/msPerYear ) + ' years ago';
 	    }
 	},
 
@@ -50,7 +50,7 @@ module.exports = {
 	*/
 	shorthandToMithrilArray : function(target){
 
-		if(target.length === 0) return [];
+		if(!target || target.length === 0) return [];
 
 		var keywordMembers = target.match(/_(.*?)_/g),
 			numberDelimiteredString = _numberedString(target),

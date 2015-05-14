@@ -41,6 +41,11 @@ GameController.prototype.onTime = function(){
     m.redraw();
 };
 
+GameController.prototype.onImageShown = function(){
+    this.VM.question().imageShown(true);
+    m.redraw();
+};
+
 GameController.prototype.afterEndQuestion = function(){
     this.VM.stopQuestion();
     m.redraw();

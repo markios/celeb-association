@@ -25,12 +25,30 @@ Answer.prototype.getScore = function(){
 
 var Question = function(d){
     this.text = m.prop(d.question);
-    this.questionElement = m.prop(utils.shorthandToMithrilArray(d.question));
+    this.questionText = d.question;
     this.answers = m.prop(_.map(d.answers, function(a){
         return new Answer(a);
     }));
     this.guesses = m.prop(0);
+    this.sceneImage = m.prop(d.image || '');
+    this.type = m.prop(d.type);
     this.limit = m.prop(_.filter(d.answers, { correct : true }).length);
+    
+    // setup
+    this.nextQuestionText();
+    this.markersForType();
+};
+
+Question.prototype.markersForType = function(){
+    switch(this.type()){
+        case "image" : 
+            this.imageShown = m.prop(false);
+        break;
+    }
+}
+
+Question.prototype.nextQuestionText = function(){
+    this.questionElement = m.prop(utils.shorthandToMithrilArray(this.questionText.shift()));
 };
 
 Question.prototype.guessLimitReached = function(){
@@ -60,7 +78,7 @@ var GameVM = function(){};
 */
 
 var _clearQuestion = function(){
-    return new Question({ question : "", answers : [] });
+    return new Question({ question : [], answers : [] });
 };
 
 // You can get negative scores!!
