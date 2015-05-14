@@ -43,6 +43,7 @@ GameController.prototype.onTime = function(){
 
 GameController.prototype.onImageShown = function(){
     this.VM.question().imageShown(true);
+    this.VM.question().nextQuestionText();
     m.redraw();
 };
 
@@ -57,6 +58,7 @@ GameController.prototype.afterEndQuestion = function(){
 	Start the timer off and begin the question
 */
 GameController.prototype.startQuestion = function(){
+    this.VM.questionShown(true);
     this.VM.startQuestion();
     m.redraw();
 };

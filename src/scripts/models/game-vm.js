@@ -30,22 +30,22 @@ var Question = function(d){
         return new Answer(a);
     }));
     this.guesses = m.prop(0);
-    this.sceneImage = m.prop(d.image || '');
     this.type = m.prop(d.type);
     this.limit = m.prop(_.filter(d.answers, { correct : true }).length);
     
     // setup
     this.nextQuestionText();
-    this.markersForType();
+    this.markersForType(d);
 };
 
-Question.prototype.markersForType = function(){
+Question.prototype.markersForType = function(d){
     switch(this.type()){
-        case "image" : 
+        case "image" :
             this.imageShown = m.prop(false);
+            this.sceneImage = m.prop(d.image[0]);
         break;
     }
-}
+};
 
 Question.prototype.nextQuestionText = function(){
     this.questionElement = m.prop(utils.shorthandToMithrilArray(this.questionText.shift()));

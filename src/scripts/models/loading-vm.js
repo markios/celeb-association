@@ -39,6 +39,7 @@ LoadingVM.prototype.init = function(){
 
     _.each(questions, function(q){
         entities = _.union(entities, _.pluck(q.answers, 'image'));
+        if(q.image) entities = _.union(entities, q.image);
     });
     entities = _.union(entities, _.pluck(assets, 'image'));
 

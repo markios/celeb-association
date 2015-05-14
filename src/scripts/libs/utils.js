@@ -7,7 +7,7 @@ var _ = require('lodash'),
 
 var _numberedString = function(target){
 	var index = 0;
-	return target.replace(/_(.*?)_/g, function (match, text, number) {
+	return target.replace(/`(.*?)`/g, function (match, text, number) {
         var res = '{' + index + '}';
         index++
         return res;
@@ -52,14 +52,14 @@ module.exports = {
 
 		if(!target || target.length === 0) return [];
 
-		var keywordMembers = target.match(/_(.*?)_/g),
+		var keywordMembers = target.match(/`(.*?)`/g),
 			numberDelimiteredString = _numberedString(target),
 			targetArray = _.without(numberDelimiteredString.split(/{(\d+)}/), "");
 
 		
 		for (var i = 0, j = targetArray.length; i < j; i++) {
 			var t = +targetArray[i];
-			if(t >= 0) targetArray[i] = m('span', keywordMembers[t].replace(/_/g, ''));    this.guesses = m.prop(0);
+			if(t >= 0) targetArray[i] = m('span', keywordMembers[t].replace(/`/g, ''));    this.guesses = m.prop(0);
 
 		};
 

@@ -12,8 +12,9 @@ var m = require('mithril'),
     Helpers
 */
 
-var _getEl = function(el){
-    return document.querySelectorAll(el);
+var _getEl = function(marker){
+    var el = document.querySelectorAll(marker);
+    return el.length > 1 ? el : el[0];
 };
 
 var _runSequence = function(seq){
@@ -27,8 +28,9 @@ var _getAnimationFor = function(name, overides){
         "questionShow"       : { e : _getEl('.current-question'),  p : 'transition.slideUpIn' },
         "questionHide"       : { e : _getEl('.current-question'),  p : 'transition.slideUpOut' },
         "limitShow"          : { e : _getEl('.limit'), p : 'transition.bounceIn' },
-        "limitHide"          : { e : _getEl('.limit'), p : 'transition.bounceIn' },
-        "imageQuestionShow"  : { e : _getEl('.question-mask'), p : 'transition.shrinkIn' },
+        "limitHide"          : { e : _getEl('.limit'), p : 'transition.bounceOut' },
+        "imageQuestionShow"  : { e : _getEl('.question-mask > .image-holder'), p : 'transition.shrinkIn' },
+        "imageQuestionHide"  : { e : _getEl('.question-mask > .image-holder'), p : 'transition.shrinkOut' },
         "answersShow"        : { e : _getEl('.answer'), p : 'transition.bounceIn', o : { stagger : 200 } },
         "answersHide"        : { e : _getEl('.answer'), p : 'transition.bounceOut', o : { duration : 500 } },
         "falseAnswersFade"   : { e : _getEl('.js_falsy'), p : { opacity : 0.3 }, o : { duration : 500 } },
@@ -36,7 +38,10 @@ var _getAnimationFor = function(name, overides){
     };
 
     var target = anim[name];
-    if(overides) _.extend(target.o, overides);
+    if(overides ) {
+        target.o = target.o || {};
+        _.extend(target.o, overides);
+    } 
     return target;
 };
 
@@ -49,7 +54,6 @@ var _renderStandard = function(ctrl, el){
     ];
     if(ctrl.VM.currentQuestion() > 0) sequence.unshift(_getAnimationFor('questionNumberDown'));
     _runSequence(sequence);
-    ctrl.VM.questionShown(true);
 };
 
 var _renderImageQuestion = function(ctrl, el){
@@ -58,13 +62,19 @@ var _renderImageQuestion = function(ctrl, el){
         sequence = [
           _getAnimationFor('questionNumberUp'),
           _getAnimationFor('questionShow'),
-          _getAnimationFor('imageQuestionShow', { complete : ctrl.onImageShown.bind(ctrl) })
+          _getAnimationFor('imageQuestionShow'),
+          _getAnimationFor('imageQuestionHide', { delay : 2000 }),
+          _getAnimationFor('questionHide', { complete : ctrl.onImageShown.bind(ctrl) })
         ];
         if(ctrl.VM.currentQuestion() > 0) sequence.unshift(_getAnimationFor('questionNumberDown'));
-        _runSequence(sequence);
     } else {
-
+        sequence = [
+          _getAnimationFor('questionShow'),
+          _getAnimationFor('answersShow'),
+          _getAnimationFor('limitShow', { complete : ctrl.startQuestion.bind(ctrl) })
+        ];
     }
+    _runSequence(sequence);
 };
 
 /*
@@ -73,7 +83,7 @@ var _renderImageQuestion = function(ctrl, el){
 
 var renderGamePage = function(ctrl, el){
     document.body.className = 'game';
-    Velocity(el.children[0], { translateY : '+=170px' }, { duration : 500, delay : 300, easing : [ 250, 0 ] }).then(function(){
+    Velocity(_getEl('.game-header'), { translateY : '+=170px' }, { duration : 500, delay : 300, easing : [ 250, 0 ] }).then(function(){
         ctrl.ready();
     });
 };
@@ -97,10 +107,10 @@ var renderAnswersOut = function(ctrl, el){
 
 var renderQuestionForType = function(ctrl, el){
     // Show the questions
-    _getEl('.game-header')[0].classList.add('begin');
+    _getEl('.game-header').classList.add('begin');
 
     // get answers and remove weird init style
-    var answers = _getEl('.answers-area')[0];
+    var answers = _getEl('.question-mask');
     answers.style.opacity = 1;
     answers.style.display = 'block';
 
@@ -145,8 +155,8 @@ var View = function(ctrl){
                 m('h3.current-question.opaque', ctrl.VM.question().questionElement()),
                 m('h4.limit.opaque', ['Choose ', m('span', ctrl.VM.question().limit())])
             ]),
-            m('.question-mask.hidden', [
-                m('.image-holder', { style : { backgroundImage : 'url(' + ctrl.VM.question().sceneImage() + ')' } } )
+            m('.question-mask', [
+                m('.image-holder.opaque', { style : { backgroundImage : 'url(' + (ctrl.VM.question().type() === 'image' ? ctrl.VM.question().sceneImage() : '') + ')' } } )
             ]),
             m('.answers-area', [
                 m("ul", [

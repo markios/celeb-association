@@ -22,6 +22,7 @@ body {
 			left:0;
 			height:120px;
 			width:100%;
+			z-index:2;
 			background-color:@white;
 			.timer {
 				position:absolute;
@@ -84,12 +85,21 @@ body {
 		.question-mask {
 			width:100%;
 			height:100%;
-			background-position:center;
-			background-size:100%;
-			background-repeat:no-repeat;
+			z-index:1;
+			position:absolute;
+			.image-holder {
+				background-position:center;
+				background-size:100%;
+				background-repeat:no-repeat;
+				width:100%;
+				height:100%;
+			}
 		}
 		.answers-area {
 			position:relative;
+			top:130px;
+			left:0;
+			z-index:2;
 			max-width:390px;
 			height:400px;
 			margin: 20px auto;
