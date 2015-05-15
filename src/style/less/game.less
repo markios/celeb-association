@@ -111,7 +111,7 @@ body {
 				li {
 					float:left;
 					position:relative;
-					background-size:auto 100%;
+					background-size:contain;
 					background-position:center;
 					background-repeat:no-repeat;
 					margin-bottom:30px;
@@ -127,6 +127,17 @@ body {
 					&.selected {
 						.name {
 							color:@Pink;
+						}
+						&::after{
+						    content:"\f0a5";
+						    .icon-font;
+						    .rotate(-30deg);
+						    display:block;
+						    font-size:2rem;
+						    color:@Pink;
+						    position:absolute;
+						    top:-5px;
+						    right:-5px;
 						}
 					}
 				}
@@ -148,7 +159,8 @@ body {
 		ul {
 			li {
 				height:100px;
-				width:130px;
+				width:114px;
+				margin:0 5px;
 			}
 		}
 	}
@@ -168,7 +180,8 @@ body {
 		ul {
 			li {
 				height:70px;
-				width:106px;
+				width:96px;
+				margin:0 5px;
 			}
 		}
 	}
