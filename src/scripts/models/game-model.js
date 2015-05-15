@@ -37,7 +37,7 @@ var data = {
 		]
 	},
 	{
-		question : ["Ladies and Gentlemen, `Rob Burgundy`", "Finish the quote. Arrrgghhhhhhh, I'm in a `_` cage of `_`"],
+		question : ["Ladies and Gentlemen, Anchorman's Mr `Ron Burgundy`", "Finish the quote. Arrrgghhhhhhh, I'm in a `_` cage of `_`"],
 		type : "image",
 		image : ["http://img-a.zeebox.com/600x320/z/bb276f11-3f0d-484d-bdba-0a022010ece3.jpg"],
 		answers  : [

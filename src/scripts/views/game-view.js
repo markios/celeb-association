@@ -60,10 +60,10 @@ var _renderImageQuestion = function(ctrl, el){
     var sequence = null;
     if(!ctrl.VM.question().imageShown()){
         sequence = [
-          _getAnimationFor('questionNumberUp'),
+          _getAnimationFor('questionNumberUp', { delay : 1000 }),
           _getAnimationFor('questionShow'),
           _getAnimationFor('imageQuestionShow'),
-          _getAnimationFor('imageQuestionHide', { delay : 2000 }),
+          _getAnimationFor('imageQuestionHide', { delay : 3000 }),
           _getAnimationFor('questionHide', { complete : ctrl.onImageShown.bind(ctrl) })
         ];
         if(ctrl.VM.currentQuestion() > 0) sequence.unshift(_getAnimationFor('questionNumberDown'));
