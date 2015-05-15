@@ -25,7 +25,7 @@ Answer.prototype.getScore = function(){
 
 var Question = function(d){
     this.text = m.prop(d.question);
-    this.questionText = d.question;
+    this.questionText = _.clone(d.question);
     this.answers = m.prop(_.map(d.answers, function(a){
         return new Answer(a);
     }));
